@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        tools:context=".activities.TaskEditActivity">
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+
+            app:layout_constraintBottom_toBottomOf="@id/title_input"
+            app:layout_constraintEnd_toStartOf="@+id/title_input"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title_input" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/title_input"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="305dp"
+            android:layout_height="wrap_content"
+
+            android:hint="Title"
+            app:layout_constraintStart_toEndOf="@+id/checkBox"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:inputType="text" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/desc_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="Description"
+            app:layout_constraintStart_toStartOf="@+id/checkBox"
+            app:layout_constraintTop_toBottomOf="@id/title_input">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/desc_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:lines="6"
+                android:overScrollMode="always"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:scrollHorizontally="false" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/icon_priority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="@id/priority_text"
+            app:layout_constraintStart_toStartOf="@+id/desc_input"
+            app:layout_constraintTop_toTopOf="@id/priority_text"
+            app:srcCompat="@drawable/ic_color" />
+
+        <TextView
+            android:id="@+id/priority_text"
+            style="@style/Widget.TipTime.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="6dp"
+            android:text="Priority"
+            app:layout_constraintStart_toEndOf="@+id/icon_priority"
+            app:layout_constraintTop_toBottomOf="@id/desc_input" />
+
+        <RadioGroup
+            android:id="@+id/priority"
+            android:checkedButton="@id/chill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/priority_text"
+            app:layout_constraintTop_toBottomOf="@id/priority_text">
+            <RadioButton
+                android:id="@+id/important"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/red"
+                android:text="Important" />
+            <RadioButton
+                android:id="@+id/normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/yellow"
+                android:text="Normal" />
+
+            <RadioButton
+                android:id="@+id/chill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/coconut"
+                android:text="Chill" />
+
+        </RadioGroup>
+
+
+        <ImageView
+            android:id="@+id/icon_subtask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+
+            app:layout_constraintBottom_toBottomOf="@id/add_subtask_text"
+            app:layout_constraintStart_toStartOf="@+id/icon_priority"
+            app:layout_constraintTop_toTopOf="@id/add_subtask_text"
+            app:srcCompat="@drawable/ic_add_task"
+            android:onClick="addSubtask"/>
+        <EditText
+            android:id="@+id/add_subtask_text"
+            style="@style/Widget.TipTime.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="6dp"
+            android:hint="Add Subtask"
+            app:layout_constraintStart_toEndOf="@+id/icon_subtask"
+            app:layout_constraintTop_toBottomOf="@id/priority" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/subtask_box"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/icon_subtask"
+            app:layout_constraintTop_toBottomOf="@id/add_subtask_text"
+            android:layout_margin="16dp"
+            >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/subtask"
+            app:layoutManager="LinearLayoutManager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+        <ImageView
+            android:id="@+id/icon_round_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="@id/daily_switch"
+            app:layout_constraintStart_toStartOf="@+id/icon_subtask"
+            app:layout_constraintTop_toTopOf="@id/daily_switch"
+            app:srcCompat="@drawable/ic_repeat" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/daily_switch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:checked="true"
+            android:text="Repeat Daily?"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/icon_round_up"
+            app:layout_constraintTop_toBottomOf="@id/subtask_box" />
+
+        <Button
+            android:id="@+id/save_task"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Save task"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/icon_round_up"
+            app:layout_constraintTop_toBottomOf="@id/daily_switch"
+            android:onClick="saveTask"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

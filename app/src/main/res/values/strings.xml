@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Nuthing Done</string>
+    <string name="prev">Prev</string>
+    <string name="next">Next</string>
+    <string name="time_01">1:00</string>
+    <string name="time_02">2:00</string>
+    <string name="time_03">3:00</string>
+    <string name="time_04">4:00</string>
+    <string name="time_05">5:00</string>
+    <string name="time_06">6:00</string>
+    <string name="time_07">7:00</string>
+    <string name="time_08">8:00</string>
+    <string name="time_09">9:00</string>
+    <string name="time_10">10:00</string>
+    <string name="time_11">11:00</string>
+    <string name="time_12">12:00</string>
+    <string name="time_13">13:00</string>
+    <string name="time_14">14:00</string>
+    <string name="time_15">15:00</string>
+    <string name="time_16">16:00</string>
+    <string name="time_17">17:00</string>
+    <string name="time_18">18:00</string>
+    <string name="time_19">19:00</string>
+    <string name="time_20">20:00</string>
+    <string name="time_21">21:00</string>
+    <string name="time_22">22:00</string>
+    <string name="time_23">23:00</string>
+    <string name="time_00">00:00</string>
+    <string name="sun">sun</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="time12am">00:00</string>
+    <string name="time1am">1:00</string>
+    <string name="updating">update</string>
+
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.TipTime.TextView" parent="Widget.MaterialComponents.TextView">
+        <!--The smallest height for any row should be 48dp according to the Material Design guidelines-->
+        <item name="android:minHeight">48dp</item>
+        <!--Other possible gravity values include center, center_horizontal, top, and bottom-->
+        <item name="android:gravity">center_vertical</item>
+        <!--TextAppearance is a set of pre-made styles around text size, fonts, and other properties of text.-->
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+
+    <style name="Widget.TipTime.CompoundButton.Switch" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+    <style name="Widget.TipTime.CompoundButton.RadioButton"
+        parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody1</item>
+    </style>
+
+</resources>
