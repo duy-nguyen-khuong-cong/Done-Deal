@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity(), EventCellAdapter.OnItemListener {
 
         WeekUtils.selectedDate = LocalDate.now()
         weekMonth = WeekUtils.weekMonthFromDate(WeekUtils.selectedDate)
+
         setWeekView()
 
         setEventCellView()
@@ -75,13 +76,14 @@ class MainActivity : AppCompatActivity(), EventCellAdapter.OnItemListener {
     fun setWeekView(){
         // Init week data
         val weekMonthText: TextView = findViewById(R.id.week_month_text)
-        weekMonthText.text = weekMonth
+        binding.weekMonthText.text = weekMonth
         dateData= daysInWeekArray(WeekUtils.selectedDate)
         weekData = WeekData().loadDay() as MutableList<WeekDays>
-        // Grab the Grid to populate
+        // Grab the Grid to populateC
         val weekView = findViewById<RecyclerView>(R.id.week_view)
         // Apply the populate item to the Grid
         weekView.adapter = WeekAdapter(this, weekData, dateData)
+        Log.d("MONTH", WeekUtils.selectedDate.monthValue.toString())
     }
 
     fun setEventCellView(){
@@ -165,12 +167,13 @@ class MainActivity : AppCompatActivity(), EventCellAdapter.OnItemListener {
         intent.putExtra("hour", hour)
         intent.putExtra("day", day)
         intent.putExtra("week", weekMonth.split(" ")[2].toInt())
-
+        intent.putExtra("month",  WeekUtils.selectedDate.monthValue)
+        intent.putExtra("year", WeekUtils.selectedDate.year)
         if(cellText?.title != "" ){
             intent.putExtra("task", cellText)
         } else intent.putExtra("task", Task())
         this.startActivity(intent)
-//        Toast.makeText(this, weekData[weekDay].weekDay + ", " + day.toString() + " at " + hour.toString() + ":00"  , Toast.LENGTH_SHORT).show()
+//         Toast.makeText(this, weekData[weekDay].weekDay + ", " + day.toString() + " at " + hour.toString() + ":00"  , Toast.LENGTH_SHORT).show()
         setEventCellView()
     }
 

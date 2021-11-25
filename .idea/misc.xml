@@ -8,7 +8,7 @@
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.3202247191011236" />
         <entry key="app/src/main/res/drawable/ic_forward.xml" value="0.3202247191011236" />
         <entry key="app/src/main/res/drawable/ic_reorder.xml" value="0.3265625" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_task_edit.xml" value="0.25" />
         <entry key="app/src/main/res/layout/cell.xml" value="0.30625" />
         <entry key="app/src/main/res/layout/event_cell.xml" value="0.30625" />
