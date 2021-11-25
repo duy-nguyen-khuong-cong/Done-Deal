@@ -62,6 +62,12 @@ class MainActivity : AppCompatActivity(), EventCellAdapter.OnItemListener {
 
         setWeekView()
 
+//        setEventCellView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("RESUME", "ON RESUME")
         setEventCellView()
     }
 
@@ -102,6 +108,7 @@ class MainActivity : AppCompatActivity(), EventCellAdapter.OnItemListener {
             }
         } )
         binding.cellView.adapter = adapter
+        (binding.cellView.adapter as EventCellAdapter).notifyDataSetChanged()
 
         //Drag drop operation
 
@@ -126,7 +133,10 @@ class MainActivity : AppCompatActivity(), EventCellAdapter.OnItemListener {
     // Load raw Json data to a list
     fun loadData(){
         TaskJSONStore()
-        app.gridData = MutableList(24*7){ it -> Task() }
+//        app.gridData = MutableList(24*7){ it -> Task() }
+        for (i in 0..app.gridData.size-1){
+            app.gridData[i] = Task()
+        }
         if(TaskJSONStore.tasks.isNotEmpty()){
             for (task in TaskJSONStore.tasks){
                 val idx = dateData.indexOf(task.day)
@@ -174,7 +184,8 @@ class MainActivity : AppCompatActivity(), EventCellAdapter.OnItemListener {
         } else intent.putExtra("task", Task())
         this.startActivity(intent)
 //         Toast.makeText(this, weekData[weekDay].weekDay + ", " + day.toString() + " at " + hour.toString() + ":00"  , Toast.LENGTH_SHORT).show()
-        setEventCellView()
+
+
     }
 
 

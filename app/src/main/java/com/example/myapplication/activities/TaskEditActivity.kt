@@ -47,8 +47,6 @@ class TaskEditActivity: AppCompatActivity(){
     }
 
     fun setSubtask() {
-        // Init test data
-
         // Apply the populate item to the Grid
         binding.subtask.adapter = SubtaskAdapter(this, subtaskList)
     }
@@ -114,6 +112,7 @@ class TaskEditActivity: AppCompatActivity(){
 
     fun addSubtask(view: android.view.View) {
         subtaskList.add(Task(idCount, binding.addSubtaskText.text.toString()))
+        binding.addSubtaskText.text.clear()
         idCount++
         setSubtask()
     }

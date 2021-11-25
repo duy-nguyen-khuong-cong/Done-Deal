@@ -109,7 +109,7 @@ class EventCellAdapter(
                         holder.cellView.startAnimation(animation)
                         holder.cellSub.startAnimation(animation)
                         TaskJSONStore.delete(item)
-
+                        notifyItemRemoved(position)
                         return false
                     }
                 })
