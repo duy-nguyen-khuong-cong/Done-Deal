@@ -2,21 +2,29 @@ package com.example.myapplication.activities
 
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.R
 import com.example.myapplication.adapters.SubtaskAdapter
 import com.example.myapplication.databinding.ActivityTaskEditBinding
 import com.example.myapplication.models.Task
 import com.example.myapplication.models.TaskJSONStore
+import com.example.myapplication.utils.showImagePicker
+import com.squareup.picasso.Picasso
 import java.util.*
 
 class TaskEditActivity: AppCompatActivity(){
     private lateinit var binding: ActivityTaskEditBinding
+    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     lateinit var task: Task
     var subtaskList: MutableList<Task?> = mutableListOf()
     var idCount: Long = 0
@@ -29,13 +37,17 @@ class TaskEditActivity: AppCompatActivity(){
         setContentView(binding.root)
 
 
-
+        binding.taskImg.setOnClickListener {
+            showImagePicker(imageIntentLauncher)
+        }
+        registerImagePickerCallback()
 
         task = intent?.extras?.getSerializable("task") as Task
         subtaskList = task.subTask
         binding.checkBox.isChecked = task.isDone
         binding.titleText.setText(task.title)
         binding.descText.setText(task.description)
+        if(task.img != "") Picasso.get().load(task.img).into(binding.taskImg)
         binding.priority.check(when(task.priority){
             3 -> R.id.important
             2 -> R.id.normal
@@ -45,7 +57,37 @@ class TaskEditActivity: AppCompatActivity(){
         setSubtask()
 
     }
+    fun registerImagePickerCallback() {
+        imageIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when(result.resultCode){
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            task.img = result.data!!.data.toString()!!
+                            Picasso.get()
+                                .load(task.img)
+                                .into(binding.taskImg)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_cancel, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_cancel -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
     fun setSubtask() {
         // Apply the populate item to the Grid
         binding.subtask.adapter = SubtaskAdapter(this, subtaskList)
@@ -63,7 +105,7 @@ class TaskEditActivity: AppCompatActivity(){
             else -> 1
         }
         if(task.title ==""){
-            var newTask = Task(1,binding.titleText.text.toString(),priority, binding.descText.text.toString(),binding.checkBox.isChecked,day!!, hour!!, week!!,subtaskList,binding.dailySwitch.isChecked)
+            var newTask = Task(1,binding.titleText.text.toString(),priority, binding.descText.text.toString(),task.img,binding.checkBox.isChecked,day!!, hour!!, week!!,subtaskList,binding.dailySwitch.isChecked)
             TaskJSONStore.create(newTask)
 
             // Send to google calendar
@@ -81,27 +123,38 @@ class TaskEditActivity: AppCompatActivity(){
 
 
 
-
-            val intent: Intent = Intent(Intent.ACTION_INSERT)
-            intent.setData(CalendarContract.Events.CONTENT_URI)
-            intent.putExtra(CalendarContract.Events.TITLE, binding.titleText.text.toString())
-            intent.putExtra(CalendarContract.Events.DESCRIPTION, binding.descText.text.toString())
-            intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, startMillis)//WHY U STILL DECEMBER
-            intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endMillis)
-            if (binding.dailySwitch.isChecked) {
-                Log.d("RRULE", "IN")
-                intent.putExtra(CalendarContract.Events.RRULE, "FREQ=DAILY")
-            }
-            if(intent.resolveActivity(packageManager) != null){
-                startActivity(intent)
-            } else{
-                Toast.makeText(this, "THERE IS NO APP THAT SUPPORT THIS ACTION",Toast.LENGTH_SHORT).show()
+            if(binding.googleSwitch.isChecked) {
+                val intent: Intent = Intent(Intent.ACTION_INSERT)
+                intent.setData(CalendarContract.Events.CONTENT_URI)
+                intent.putExtra(CalendarContract.Events.TITLE, binding.titleText.text.toString())
+                intent.putExtra(
+                    CalendarContract.Events.DESCRIPTION,
+                    binding.descText.text.toString()
+                )
+                intent.putExtra(
+                    CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                    startMillis
+                )//WHY U STILL DECEMBER
+                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endMillis)
+                if (binding.dailySwitch.isChecked) {
+                    Log.d("RRULE", "IN")
+                    intent.putExtra(CalendarContract.Events.RRULE, "FREQ=DAILY")
+                }
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(
+                        this,
+                        "THERE IS NO APP THAT SUPPORT THIS ACTION",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
 
 
         } else{
             Log.d("UPDATE", task.title)
-            TaskJSONStore.update(Task(task.id,binding.titleText.text.toString(),priority, binding.descText.text.toString(),binding.checkBox.isChecked,day!!, hour!!, week!!,subtaskList,binding.dailySwitch.isChecked))
+            TaskJSONStore.update(Task(task.id,binding.titleText.text.toString(),priority, binding.descText.text.toString(),task.img,binding.checkBox.isChecked,day!!, hour!!, week!!,subtaskList,binding.dailySwitch.isChecked))
         }
 
 

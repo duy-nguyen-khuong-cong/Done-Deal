@@ -9,6 +9,7 @@ import android.util.Log
 import com.example.myapplication.utils.exists
 import com.example.myapplication.utils.read
 import com.example.myapplication.utils.write
+import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -47,7 +48,7 @@ class TaskJSONStore{
             return foundTask
         }
 
-        fun create(task: Task) {
+        fun create(task: Task) {//X
             task.id = generateRandomId()
             tasks.add(task)
             serialize()

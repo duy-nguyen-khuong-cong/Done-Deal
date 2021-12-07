@@ -72,12 +72,22 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
+            android:id="@+id/task_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_img"
+            android:background="@drawable/back"
+            android:layout_margin="16dp"
+            app:layout_constraintStart_toStartOf="@+id/desc_input"
+            app:layout_constraintTop_toBottomOf="@+id/desc_input"/>
+
+        <ImageView
             android:id="@+id/icon_priority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:importantForAccessibility="no"
             app:layout_constraintBottom_toBottomOf="@id/priority_text"
-            app:layout_constraintStart_toStartOf="@+id/desc_input"
+            app:layout_constraintStart_toStartOf="@+id/task_img"
             app:layout_constraintTop_toTopOf="@id/priority_text"
             app:srcCompat="@drawable/ic_color" />
 
@@ -90,7 +100,7 @@
             android:layout_marginStart="6dp"
             android:text="Priority"
             app:layout_constraintStart_toEndOf="@+id/icon_priority"
-            app:layout_constraintTop_toBottomOf="@id/desc_input" />
+            app:layout_constraintTop_toBottomOf="@id/task_img" />
 
         <RadioGroup
             android:id="@+id/priority"
@@ -178,20 +188,40 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:checked="true"
+            android:checked="false"
             android:text="Repeat Daily?"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/icon_round_up"
             app:layout_constraintTop_toBottomOf="@id/subtask_box" />
 
+        <ImageView
+            android:id="@+id/icon_google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="@id/google_switch"
+            app:layout_constraintStart_toStartOf="@+id/icon_round_up"
+            app:layout_constraintTop_toTopOf="@id/google_switch"
+            app:srcCompat="@drawable/ic_calendar" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/google_switch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:checked="false"
+            android:text="Save to google?"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/icon_google"
+            app:layout_constraintTop_toBottomOf="@id/daily_switch" />
         <Button
             android:id="@+id/save_task"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Save task"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/icon_round_up"
-            app:layout_constraintTop_toBottomOf="@id/daily_switch"
+            app:layout_constraintStart_toStartOf="@+id/icon_google"
+            app:layout_constraintTop_toBottomOf="@id/google_switch"
             android:onClick="saveTask"/>
 
 

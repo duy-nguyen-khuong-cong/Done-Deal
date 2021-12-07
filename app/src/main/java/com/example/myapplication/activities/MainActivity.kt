@@ -27,6 +27,7 @@ import com.example.myapplication.utils.OnStartDragListener
 import com.example.myapplication.utils.TouchHelperCallback
 import java.lang.Math.floor
 import com.example.myapplication.models.Task
+//import com.example.myapplication.models.TaskFirebaseStore
 import com.example.myapplication.models.TaskJSONStore
 import org.json.JSONObject
 import java.io.IOException
@@ -140,7 +141,9 @@ class MainActivity : AppCompatActivity(), EventCellAdapter.OnItemListener {
         if(TaskJSONStore.tasks.isNotEmpty()){
             for (task in TaskJSONStore.tasks){
                 val idx = dateData.indexOf(task.day)
-                if( idx!= -1 && task.repeat == true){
+                Log.d("REPEAT IDX", task.day.toString())
+                if(task.repeat){
+                    Log.d("REPEAT", idx.toString())
                     for( i in 0..6) app.gridData[i*24 + task.time] = task
                 }
                 else if ( idx!= -1 && task.week == weekMonth.split(" ")[2].toInt()){

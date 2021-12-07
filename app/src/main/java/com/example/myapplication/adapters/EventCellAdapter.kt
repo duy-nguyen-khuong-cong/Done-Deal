@@ -16,6 +16,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MotionEvent
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -23,6 +24,7 @@ import androidx.core.graphics.drawable.toDrawable
 import com.example.myapplication.R
 import com.example.myapplication.models.Task
 import com.example.myapplication.models.TaskJSONStore
+import com.squareup.picasso.Picasso
 import org.w3c.dom.Text
 import java.util.*
 
@@ -44,6 +46,7 @@ class EventCellAdapter(
         val cellText: TextView = itemView.findViewById(com.example.myapplication.R.id.cell_text)
         val cellSub: TextView = itemView.findViewById(com.example.myapplication.R.id.sub_count)
         val cellReorder: TextView = itemView.findViewById(com.example.myapplication.R.id.cell_reorder)
+        val cellImage: ImageView = itemView.findViewById(R.id.mini_img)
         lateinit var unbinder: Unbinder
         init{
             itemView.setOnClickListener(this)
@@ -93,6 +96,11 @@ class EventCellAdapter(
                 holder.cellSub.visibility = View.VISIBLE
                 holder.cellText.text = item.title
                 holder.cellSub.text = (item.subTask.size.toString() + "Subtask")
+                if(item.img != ""){
+                    Picasso.get()
+                        .load(item.img)
+                        .into(holder.cellImage)
+                }
                 if(item.isDone) {
                     holder.cellText.paintFlags = holder.cellText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     holder.cellView.alpha = 0.5F
