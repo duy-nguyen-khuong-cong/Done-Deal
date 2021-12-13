@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity(), EventCellAdapter.OnItemListener {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        TaskJSONStore.Companion.setContext(this);
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         app = application as MainApp

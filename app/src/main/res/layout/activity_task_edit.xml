@@ -9,9 +9,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="16dp"
-        tools:context=".activities.TaskEditActivity">
+        tools:context=".activities.TaskEditActivity"
+        >
 
         <CheckBox
             android:id="@+id/checkBox"
@@ -30,7 +31,7 @@
             android:layout_width="305dp"
             android:layout_height="wrap_content"
 
-            android:hint="Title"
+            android:hint="@string/title"
             app:layout_constraintStart_toEndOf="@+id/checkBox"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -51,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:hint="Description"
+            android:hint="@string/description"
             app:layout_constraintStart_toStartOf="@+id/checkBox"
             app:layout_constraintTop_toBottomOf="@id/title_input">
 
@@ -79,7 +80,8 @@
             android:background="@drawable/back"
             android:layout_margin="16dp"
             app:layout_constraintStart_toStartOf="@+id/desc_input"
-            app:layout_constraintTop_toBottomOf="@+id/desc_input"/>
+            app:layout_constraintTop_toBottomOf="@+id/desc_input"
+            android:contentDescription="@string/add_image_here" />
 
         <ImageView
             android:id="@+id/icon_priority"
@@ -98,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginStart="6dp"
-            android:text="Priority"
+            android:text="@string/priority"
             app:layout_constraintStart_toEndOf="@+id/icon_priority"
             app:layout_constraintTop_toBottomOf="@id/task_img" />
 
@@ -115,20 +117,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/red"
-                android:text="Important" />
+                android:text="@string/important" />
             <RadioButton
                 android:id="@+id/normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/yellow"
-                android:text="Normal" />
+                android:text="@string/normal" />
 
             <RadioButton
                 android:id="@+id/chill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/coconut"
-                android:text="Chill" />
+                android:text="@string/chill" />
 
         </RadioGroup>
 
@@ -150,8 +152,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:layout_marginLeft="6dp"
-            android:hint="Add Subtask"
+            android:layout_marginStart="6dp"
+            android:hint="@string/add_subtask"
             app:layout_constraintStart_toEndOf="@+id/icon_subtask"
             app:layout_constraintTop_toBottomOf="@id/priority" />
         <com.google.android.material.card.MaterialCardView
@@ -189,7 +191,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:checked="false"
-            android:text="Repeat Daily?"
+            android:text="@string/repeat_daily"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/icon_round_up"
             app:layout_constraintTop_toBottomOf="@id/subtask_box" />
@@ -210,7 +212,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:checked="false"
-            android:text="Save to google?"
+            android:text="@string/save_to_google"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/icon_google"
             app:layout_constraintTop_toBottomOf="@id/daily_switch" />
@@ -218,7 +220,7 @@
             android:id="@+id/save_task"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Save task"
+            android:text="@string/save_task"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/icon_google"
             app:layout_constraintTop_toBottomOf="@id/google_switch"

@@ -95,7 +95,7 @@ class EventCellAdapter(
                 holder.cellView.visibility = View.VISIBLE
                 holder.cellSub.visibility = View.VISIBLE
                 holder.cellText.text = item.title
-                holder.cellSub.text = (item.subTask.size.toString() + "Subtask")
+                holder.cellSub.text = (item.subTask.size.toString() + " Subtask")
                 if(item.img != ""){
                     Picasso.get()
                         .load(item.img)

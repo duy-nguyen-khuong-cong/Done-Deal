@@ -38,4 +38,18 @@
     <string name="time1am">1:00</string>
     <string name="updating">update</string>
     <string name="cancel_task">Cancel</string>
+    <string name="this_week">This Week</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="add_image_here">Add Image Here</string>
+    <string name="important">Important</string>
+    <string name="normal">Normal</string>
+    <string name="priority">Priority</string>
+    <string name="add_subtask">Add Subtask</string>
+    <string name="chill">Chill</string>
+    <string name="repeat_daily">Repeat Daily?</string>
+    <string name="save_to_google">Save to google?</string>
+    <string name="save_task">Save task</string>
+    <string name="filler">---------------------------------</string>
+    <string name="sub_task">Sub-task</string>
 </resources>

@@ -1,23 +1,16 @@
 package com.example.myapplication.models
 
 
-
-import android.hardware.Camera.open
-import android.os.ParcelFileDescriptor.open
-import android.system.Os.open
+import android.content.Context
+import android.net.Uri
 import android.util.Log
-import com.example.myapplication.utils.exists
-import com.example.myapplication.utils.read
-import com.example.myapplication.utils.write
-import com.google.firebase.database.FirebaseDatabase
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
+import com.google.gson.*
 import com.google.gson.reflect.TypeToken
+import com.example.myapplication.utils.*
 import mu.KotlinLogging
-import java.io.IOException
-import java.nio.channels.AsynchronousFileChannel.open
-import java.nio.channels.FileChannel.open
-import java.nio.charset.Charset
+import java.lang.reflect.Type
+import java.util.*
+
 
 
 import java.util.*
@@ -27,7 +20,9 @@ private val logger = KotlinLogging.logger {}
 //save file name
 val JSON_FILE = "tasks.json"
 //init the Gson lib
-val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
+val gsonBuilder = GsonBuilder().setPrettyPrinting()
+    .registerTypeAdapter(Uri::class.java, UriParser())
+    .create()
 //Gson template init
 val listType = object : TypeToken<ArrayList<Task>>() {}.type
 
@@ -35,9 +30,15 @@ fun generateRandomId(): Long {
     return Random().nextLong()
 }
 
-class TaskJSONStore{
+class TaskJSONStore {
 
     companion object{
+        private lateinit var context: Context
+
+        fun setContext(con: Context) {
+            context=con
+        }
+
         var tasks = mutableListOf<Task>()
         fun findAll(): MutableList<Task> {
             return tasks
@@ -97,12 +98,12 @@ class TaskJSONStore{
 
         private fun serialize() {
             val jsonString = gsonBuilder.toJson(tasks, listType)
-            write(JSON_FILE, jsonString)
+            write(context, JSON_FILE, jsonString)
         }
 
         private fun deserialize() {
-            val jsonString = read(JSON_FILE)
-            tasks = Gson().fromJson(jsonString, listType)
+            val jsonString = read(context, JSON_FILE)
+            tasks = gsonBuilder.fromJson(jsonString, listType)
         }
 
 
@@ -110,11 +111,28 @@ class TaskJSONStore{
 
 
     init {
-        if (exists(JSON_FILE)) {
-            //Read
+
+        if (exists(context, JSON_FILE)) {
             deserialize()
         }
     }
 
 
+}
+class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
+    override fun deserialize(
+        json: JsonElement?,
+        typeOfT: Type?,
+        context: JsonDeserializationContext?
+    ): Uri {
+        return Uri.parse(json?.asString)
+    }
+
+    override fun serialize(
+        src: Uri?,
+        typeOfSrc: Type?,
+        context: JsonSerializationContext?
+    ): JsonElement {
+        return JsonPrimitive(src.toString())
+    }
 }

@@ -11,7 +11,7 @@
             android:id="@+id/blank_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="---------------------------------"
+            android:text="@string/filler"
 
             android:background="@color/gray"
             android:textColor="@color/light_gray"

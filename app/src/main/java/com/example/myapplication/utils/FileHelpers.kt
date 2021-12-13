@@ -1,48 +1,48 @@
 package com.example.myapplication.utils
 
-import mu.KotlinLogging
+import android.content.Context
+import android.widget.Toast
+
 import java.io.*
 
-val logger = KotlinLogging.logger {}
-
-fun write( fileName: String, data: String) {
-
-    val file = File(fileName)
+fun write(context: Context, fileName: String, data: String) {
     try {
-        val outputStreamWriter = OutputStreamWriter(FileOutputStream(file))
+        val outputStreamWriter = OutputStreamWriter(context.openFileOutput(fileName, Context.MODE_PRIVATE))
         outputStreamWriter.write(data)
         outputStreamWriter.close()
     } catch (e: Exception) {
-        logger.error { "Cannot read file: " + e.toString() }
+//        e("Cannot read file: %s", e.toString());
+        Toast.makeText(context, "Cannot read file: %s$e", Toast.LENGTH_SHORT).show()
     }
 }
 
-fun read(fileName: String): String {
-    val file = File(fileName)
+fun read(context: Context, fileName: String): String {
     var str = ""
     try {
-        val inputStreamReader = InputStreamReader(FileInputStream(file))
-        if (inputStreamReader != null) {
+        val inputStream = context.openFileInput(fileName)
+        if (inputStream != null) {
+            val inputStreamReader = InputStreamReader(inputStream)
             val bufferedReader = BufferedReader(inputStreamReader)
             val partialStr = StringBuilder()
             var done = false
             while (!done) {
-                var line = bufferedReader.readLine()
+                val line = bufferedReader.readLine()
                 done = (line == null);
                 if (line != null) partialStr.append(line);
             }
-            inputStreamReader.close()
+            inputStream.close()
             str = partialStr.toString()
         }
     } catch (e: FileNotFoundException) {
-        logger.error { "Cannot Find file: " + e.toString() }
+        Toast.makeText(context, "file not found: %s$e", Toast.LENGTH_SHORT).show()
     } catch (e: IOException) {
-        logger.error { "Cannot Read file: " + e.toString() }
+        Toast.makeText(context, "cannot read file: %s$e", Toast.LENGTH_SHORT).show()
+
     }
     return str
 }
 
-fun exists(fileName: String): Boolean {
-    val file = File(fileName)
+fun exists(context: Context, filename: String): Boolean {
+    val file = context.getFileStreamPath(filename)
     return file.exists()
 }
