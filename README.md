@@ -29,7 +29,7 @@ This app is specifically build for local usage and keeping track. Thus, no need 
     - Name of the task
     - Picture attached to the specific task
     - Number of sub-task inside the task itself
- + Task Detail:
++ Task Detail:
   - Checkbox
   - Name
   - Description
