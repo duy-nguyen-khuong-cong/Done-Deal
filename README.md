@@ -40,8 +40,9 @@ This app is specifically build for local usage and keeping track. Thus, no need 
   - Add to google switch ( Upon saving, will bring the user to Google calendar where the user is already authenticated to and add event there)
   
 
-End with a few screenshots
-
+## Screenshots
+![calendar view](https://github.com/duy-nguyen-khuong-cong/Done-Deal/blob/main/screenshot/calendar.png)
+![detail view](https://github.com/duy-nguyen-khuong-cong/Done-Deal/blob/main/screenshot/detail.png)
 ## Built with
 
 * [Kotlin - 1.16.10](https://kotlinlang.org) - The programming language used
